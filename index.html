@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iza Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="standalone/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+<body>
+    <div id="chat-container">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <header class="chat-header">
+            <div class="header-left">
+                <button type="button" class="mobile-toggle" id="mobile-toggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M17 12.5C17.2761 12.5 17.5 12.2761 17.5 12C17.5 11.7239 17.2761 11.5 17 11.5C16.7239 11.5 16.5 11.7239 16.5 12C16.5 12.2761 16.7239 12.5 17 12.5Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 12.5C12.2761 12.5 12.5 12.2761 12.5 12C12.5 11.7239 12.2761 11.5 12 11.5C11.7239 11.5 11.5 11.7239 11.5 12C11.5 12.2761 11.7239 12.5 12 12.5Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 12.5C7.27614 12.5 7.5 12.2761 7.5 12C7.5 11.7239 7.27614 11.5 7 11.5C6.72386 11.5 6.5 11.7239 6.5 12C6.5 12.2761 6.72386 12.5 7 12.5Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.8214 2.48697 15.5291 3.33782 17L2.5 21.5L7 20.6622C8.47087 21.513 10.1786 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg> Chat</h1>
+            </div>
+            <div class="header-center">
+                <div class="search-wrapper">
+                    <input type="text" id="global-search" class="search-input" placeholder="Search..." aria-label="Global search">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-controls">
+                    
+                    <div class="control-bubble">
+                        <button type="button" class="header-btn language-btn" data-lang="PL">PL</button>
+                        <span class="header-divider">|</span>
+                        <button type="button" class="header-btn help-btn">?</button>
+                        <span class="header-divider">|</span>
+                        <span class="auto-mode">AUTO</span>
+                    </div>
+                    
+                    
+                    <div class="user-count-badge">
+                        <i class="fas fa-users"></i>
+                        <span id="total-users">230</span>
+                    </div>
+                    
+                    
+                    <div class="control-bubble">
+                        <button type="button" class="header-btn notifications-btn" aria-label="Announcements">
+                            <i class="fas fa-bullhorn"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="header-btn menu-btn" aria-label="Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="header-btn settings-btn" aria-label="Settings">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="user-info">
+                    <span id="username">Użytkownik</span>
+                    <button type="button" id="settings-btn" aria-label="Open settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="chat-main">
+          
+<aside class="sidebar-left">
+    <div class="rooms-section">
+        <h3>Pokoje 
+            <button type="button" id="add-room-btn" aria-label="Add new room">
+                <i class="fas fa-plus"></i>
+            </button>
+        </h3>
+        <div id="rooms-list">
+            
+            <div class="room-item active" data-room="general" role="button" tabindex="0">
+                <div class="room-name">
+                    Główny
+                </div>
+                <div class="room-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4M4.5 7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7zM8 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+                    </svg>
+                    <span class="room-count">124</span>
+                </div>
+            </div>
+            
+           
+            <div class="room-item banned" data-room="general2" role="button" tabindex="0">
+                <div class="room-name">
+                    Główny
+                </div>
+                <div class="room-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                      <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+                    </svg>
+                    <span class="room-count">124</span>
+                </div>
+            </div>
+            
+         
+            <div class="room-item muted" data-room="general3" role="button" tabindex="0">
+                <div class="room-name">
+                    Główny
+                </div>
+                <div class="room-right">
+                    <svg width="16" height="16" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2C17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.5 12.5L8 14.5L7 18L8 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17 20.5L16.5 18L14 17V13.5L17 12.5L21.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 5.5L18.5 7L15 7.5V10.5L17.5 9.5H19.5L21.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.5 10.5L5 8.5L7.5 8L9.5 5L8.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    <span class="room-count">124</span>
+                </div>
+            </div>
+            
+            <div class="room-item muted" data-room="general4" role="button" tabindex="0">
+                <div class="room-name">
+                    Główny
+                </div>
+                <div class="room-right">
+                    <svg width="19" height="19" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M16 12H17.4C17.7314 12 18 12.2686 18 12.6V19.4C18 19.7314 17.7314 20 17.4 20H6.6C6.26863 20 6 19.7314 6 19.4V12.6C6 12.2686 6.26863 12 6.6 12H8M16 12V8C16 6.66667 15.2 4 12 4C8.8 4 8 6.66667 8 8V12M16 12H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    <span class="room-count">124</span>
+                </div>
+            </div>
+            
+            <div class="room-item muted" data-room="general5" role="button" tabindex="0">
+                <div class="room-name">
+                    Główny
+                </div>
+                <div class="room-right">
+                    <svg width="19" height="19" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M16 12H17.4C17.7314 12 18 12.2686 18 12.6V19.4C18 19.7314 17.7314 20 17.4 20H6.6C6.26863 20 6 19.7314 6 19.4V12.6C6 12.2686 6.26863 12 6.6 12H8M16 12V8C16 6.66667 15.2 4 12 4C8.8 4 8 6.66667 8 8V12M16 12H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    <span class="room-count">124</span>
+                </div>
+            </div>
+            
+            <div class="room-item muted" data-room="general6" role="button" tabindex="0">
+                <div class="room-name">
+                    Główny
+                </div>
+                <div class="room-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                      <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+                    </svg>
+                    <span class="room-count">124</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="search-section">
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Szukaj">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+</aside>
+
+           
+            <div class="chat-area">
+                <div class="chat-messages" id="chat-messages" role="log" aria-live="polite">
+                    <div class="system-message">
+                        Witaj w Iza Chat! Zacznij od powiedzenia cześć.
+                    </div>
+
+                   
+                    <div class="message">
+                        <img src="https://cataas.com/cat/cute?width=40&height=40" alt="Iza" class="message-avatar online">
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-author active-user">Iza</span>
+                                <img src="https://flagcdn.com/w20/pl.png" alt="Poland" class="country-flag">
+                                <span class="message-time" data-timestamp="2024-01-15T10:30:00">dzisiaj</span>
+                            </div>
+                            <div class="message-text">
+                                Dobry wieczór wszystkim!
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <div class="input-wrapper">
+                        <textarea id="message-input" placeholder="Napisz wiadomość..." maxlength="1500" rows="1" aria-label="Message input"></textarea>
+                        <button type="button" id="send-btn" class="send-btn" aria-label="Send message">
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#3182ce" stroke-width="1.5"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29106 3.3088C3.00745 3.18938 2.67967 3.25533 2.4643 3.47514C2.24894 3.69495 2.1897 4.02401 2.31488 4.30512L5.40752 11.25H13C13.4142 11.25 13.75 11.5858 13.75 12C13.75 12.4142 13.4142 12.75 13 12.75H5.40754L2.31488 19.6949C2.1897 19.976 2.24894 20.3051 2.4643 20.5249C2.67967 20.7447 3.00745 20.8107 3.29106 20.6912L22.2911 12.6913C22.5692 12.5742 22.75 12.3018 22.75 12C22.75 11.6983 22.5692 11.4259 22.2911 11.3088L3.29106 3.3088Z" fill="#3182ce"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+           
+            <aside class="sidebar-right">
+                <div class="users-section">
+                    <div class="users-header">
+                        <h3>Aktywni użytkownicy</h3>
+                        <select class="sort-dropdown" title="Sort users by" aria-label="Sort users by">
+                            <option value="activity">Aktywność</option>
+                            <option value="alphabetical">Alfabetycznie</option>
+                            <option value="status">Status</option>
+                        </select>
+                    </div>
+                    
+                    <div id="users-list">
+                        <div class="user-item">
+                            <div class="user-avatar-container">
+                                <img src="https://cataas.com/cat/cute?width=41&height=41&c=ff0000" alt="Iza" class="user-avatar online">
+                                <div class="user-active-dot"></div>
+                            </div>
+                            <div class="user-info">
+                                <span class="user-name active-user">Iza</span>
+                                <img src="https://flagcdn.com/w20/pl.png" alt="Poland" class="country-flag-small">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="search-section">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" placeholder="Szukaj">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="standalone/js/storage.js"></script>
+    <script src="standalone/js/messages.js"></script>
+    <script src="standalone/js/interface.js"></script>
+    <script src="standalone/js/chat.js"></script>
+    <script src="standalone/js/timestamps.js"></script>
+</body>
+</html>
